@@ -9,6 +9,12 @@ const UserAPI = require('./datasources/user');
 
 const store = createStore();
 
+/*
+ If you use this.context in a datasource (like with UserAPI in this case), it's critical to create a new instance in the dataSources function,
+rather than sharing a single instance. Otherwise, initialize might be called during the execution of asynchronous code for a particular user,
+replacing this.context with the context of another user. 
+ */
+
 const server = new ApolloServer({
   typeDefs,
   dataSources: () => ({
