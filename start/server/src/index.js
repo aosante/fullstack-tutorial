@@ -3,6 +3,7 @@ require('dotenv').config();
 const { ApolloServer } = require('apollo-server');
 const typeDefs = require('./schema');
 const { createStore } = require('./utils');
+const resolvers = require('./resolvers');
 
 const LaunchAPI = require('./datasources/launch');
 const UserAPI = require('./datasources/user');
@@ -17,6 +18,7 @@ replacing this.context with the context of another user.
 
 const server = new ApolloServer({
   typeDefs,
+  resolvers,
   dataSources: () => ({
     launchAPI: new LaunchAPI(),
     userAPI: new UserAPI({ store }),
